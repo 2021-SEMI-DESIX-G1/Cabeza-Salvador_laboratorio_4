@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 4</title>
+</head>
+<body>
+    <h1>Laboratorio 4</h1>
+    <form id="form-p1">
+        <label for="">Introduzca una cadena</label>
+        <input id="calc-pali" name="calc-pali" type="text">
+        <input type="submit" value="Calcular">
+    </form>
+<p id="calc-palindromo"></p>
+<script>
+    (() =>{
+        const App = {
+            htmlElements:{
+                calform: document.getElementById('form-p1'),
+                calpali: document.getElementById('calc-pali'),
+                calpalindromoResult: document.getElementById('calc-palindromo')
+            },
+            init:()=>{
+                App.bindEvents();
+            },
+            bindEvents:()=>{
+                App.htmlElements.calform.addEventListener('submit', App.events.onCalculatorFormSubmit)
+            },
+            events: {
+                onCalculatorFormSubmit:(event)=>{
+                    event.preventDefault();
+                    const ValueA = String(App.htmlElements.calpali.value);
+                    const operationResult = App.utils.texto(ValueA);
+                    var palabra;
+                    if(operationResult)
+                    {
+                        palabra="Esto es palíndromo en Base 10";
+                    }else{
+                        palabra="Esto no es palíndromo en Base 10";
+                    }
+                    const response = `La cadena ingresada ${ValueA}  ${palabra}`;
+                    App.htmlElements.calpalindromoResult.innerText = response;
+               }
+
+             },
+             utils: {
+
+                
+                 texto:(palabra)=>
+                {
+                    for (var i=0;i<palabra.length;i++){
+                        if(palabra[i]!=palabra[palabra.length-i-1]){
+                            return false;
+                        }
+                    }
+                    return true;
+
+                    
+                },
+                
+                }
+            
+         }
+        
+
+                App.init();
+    })();
+
+</script>
+</body>
+</html>
